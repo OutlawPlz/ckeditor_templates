@@ -1,0 +1,11 @@
+ckeditor_templates.admin:
+  version: VERSION
+  js:
+    js/ckeditor_templates.admin.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.once
+    - core/drupal.vertical-tabs
+    - core/drupalSettings
+    - ckeditor/drupal.ckeditor.admin

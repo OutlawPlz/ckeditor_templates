@@ -1,0 +1,10 @@
+name: CKEditor Templates
+description: This plugin provides a dialog to offer predefined content templates - with page layout, text formatting and styles.
+package: CKEditor
+
+core: 8.x
+version: 8.x-1.0-alpha
+type: module
+
+dependencies:
+  - ckeditor
