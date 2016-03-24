@@ -1,0 +1,2 @@
+# Exclude CKEditor plugins.
+js/plugins/**

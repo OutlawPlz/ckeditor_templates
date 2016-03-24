@@ -163,7 +163,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
     $config = array();
 
     $config['name'] = 'default';
-    $config['path'][] = '/' . drupal_get_path('module', 'ckeditor_templates') . '/js/plugins/templates/templates/default.js';
+    $config['path'] = '/' . drupal_get_path('module', 'ckeditor_templates') . '/js/plugins/templates/templates/default.js';
     $config['replace'] = TRUE;
 
     $settings = $editor->getSettings();
@@ -182,7 +182,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
       )
     );
 
-    if (isset($settings['plugins']['templates']['templates_files'])) {
+    if (isset($settings['plugins']['templates']['templates_files']) && !empty($settings['plugins']['templates']['templates_files'])) {
       $config['path'] = $settings['plugins']['templates']['templates_files'];
     }
 
@@ -190,7 +190,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
       '#title' => t('Path'),
       '#type' => 'textarea',
       '#default_value' => $config['path'],
-      '#description' => t('Insert paths to your <a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-templates_files">templates files</a>, only one path per row.'),
+      '#description' => t('Insert paths to your <a href="http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-templates_files">templates files</a>. One path per row.'),
       '#element_validate' => array(
         array($this, 'validateTemplatesPath')
       )
