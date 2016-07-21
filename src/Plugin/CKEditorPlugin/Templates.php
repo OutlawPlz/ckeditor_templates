@@ -213,8 +213,13 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    * #element_validate handler for the "templates_path" element in settingsForm().
    */
   public function validateTemplatesPath(array $element, FormStateInterface $form_state) {
-    if ($this->generateTemplatesPath($element['#value']) === FALSE) {
-      $form_state->setError($element, t("The provided list of path doesn't exist."));
+
+    $paths = $this->generateTemplatesPath($element['#value']);
+
+    foreach ($paths as $path) {
+      if (!file_exists(DRUPAL_ROOT . $path)) {
+        $form_state->setError($element, t('The provided file doesn\'t exist: ' . $path));
+      }
     }
   }
 
@@ -242,11 +247,6 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
       // Ignore empty lines in between non-empty lines.
       if (empty($path)) {
         continue;
-      }
-
-      // Check if file exists.
-      if (!file_exists(DRUPAL_ROOT . $path)) {
-        return FALSE;
       }
 
       $paths_set[] = $path;
