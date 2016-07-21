@@ -3,7 +3,7 @@ description: This plugin provides a dialog to offer predefined content templates
 package: CKEditor
 
 core: 8.x
-version: 8.x-1.0-alpha
+version: 8.x-1.0-beta
 type: module
 
 dependencies:
