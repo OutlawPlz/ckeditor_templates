@@ -53,7 +53,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
     return array(
       'Templates' => array(
         'label' => t('Templates'),
-        'image' => drupal_get_path('module', 'ckeditor_templates') . '/js/plugins/templates/icons/templates.png',
+        'image' => '/libraries/templates/icons/templates.png',
       )
     );
   }
@@ -108,7 +108,8 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    *   The Drupal root-relative path to the file, FALSE if an internal plugin.
    */
   public function getFile() {
-    return drupal_get_path('module', 'ckeditor_templates') . '/js/plugins/templates/plugin.js';
+
+    return '/libraries/templates/plugin.js';
   }
 
   /**
