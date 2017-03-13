@@ -6,6 +6,8 @@
 
 namespace Drupal\ckeditor_templates\Plugin\CKEditorPlugin;
 
+
+use Drupal\ckeditor\CKEditorPluginCssInterface;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\ckeditor\CKEditorPluginButtonsInterface;
 use Drupal\ckeditor\CKEditorPluginConfigurableInterface;
@@ -21,7 +23,7 @@ use Drupal\editor\Entity\Editor;
  *   label = @Translation("Templates")
  * )
  */
-class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorPluginButtonsInterface, CKEditorPluginConfigurableInterface {
+class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorPluginButtonsInterface, CKEditorPluginConfigurableInterface, CKEditorPluginCssInterface {
 
   /**
    * Returns the buttons that this plugin provides, along with metadata.
@@ -50,6 +52,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    *     and group indicators.
    */
   public function getButtons() {
+
     return array(
       'Templates' => array(
         'label' => t('Templates'),
@@ -66,6 +69,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    * @return bool
    */
   public function isInternal() {
+
     return FALSE;
   }
 
@@ -79,6 +83,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    *   is identified by its annotated ID.
    */
   public function getDependencies(Editor $editor) {
+
     return array();
   }
 
@@ -95,6 +100,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    *   property.
    */
   public function getLibraries(Editor $editor) {
+
     return array();
   }
 
@@ -131,8 +137,8 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    *   A keyed array, whose keys will end up as keys under CKEDITOR.config.
    */
   public function getConfig(Editor $editor) {
-    $config = array();
 
+    $config = array();
     $settings = $editor->getSettings();
 
     $config['templates'] = str_replace(' ', '', $settings['plugins']['templates']['templates']);
@@ -161,10 +167,10 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    *   A render array for the settings form, or FALSE if there is none.
    */
   public function settingsForm(array $form, FormStateInterface $form_state, Editor $editor) {
-    $config = array();
 
+    $config = array();
     $config['name'] = 'default';
-    $config['path'] = '/' . drupal_get_path('module', 'ckeditor_templates') . '/js/plugins/templates/templates/default.js';
+    $config['path'] = '/libraries/templates/templates/default.js';
     $config['replace'] = TRUE;
 
     $settings = $editor->getSettings();
@@ -236,6 +242,7 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
    *   the syntax is invalid.
    */
   protected function generateTemplatesPath($paths) {
+
     $paths_set = array();
 
     // The paths provided by the setting form are raw text, we should convert
@@ -254,5 +261,25 @@ class Templates extends PluginBase implements CKEditorPluginInterface, CKEditorP
     }
 
     return $paths_set;
+  }
+
+  /**
+   * Retrieves enabled plugins' iframe instance CSS files.
+   *
+   * Note: this does not use a Drupal asset library because this CSS will be
+   * loaded by CKEditor, not by Drupal.
+   *
+   * @param \Drupal\editor\Entity\Editor $editor
+   *   A configured text editor object.
+   *
+   * @return string[]
+   *   An array of CSS files. This is a flat list of file paths relative to
+   *   the Drupal root.
+   */
+  public function getCssFiles(Editor $editor) {
+
+    return array(
+      drupal_get_path('module', 'system') . '/css/components/clearfix.module.css'
+    );
   }
 }

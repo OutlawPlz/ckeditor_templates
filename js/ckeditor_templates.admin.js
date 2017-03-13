@@ -12,6 +12,7 @@
    */
   Drupal.behaviors.ckeditorTemplatesSettingsSummary = {
     attach: function () {
+
       $('[data-ckeditor-plugin-id="templates"]').drupalSetSummary(function (context) {
         var templates = $('[data-drupal-selector="edit-editor-settings-plugins-templates-templates"]').val();
 
@@ -19,7 +20,7 @@
           return Drupal.t('No templates configured');
         }
         else {
-          return Drupal.t('Names: @templates', {'@templates': templates});
+          return Drupal.t('@templates', {'@templates': templates});
         }
       });
     }
